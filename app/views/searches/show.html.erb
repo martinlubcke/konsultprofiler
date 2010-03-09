@@ -1,0 +1,20 @@
+<h1>Din sökning</h1>
+
+<h3>Sökkriteria</h3>
+<ul>
+<% @search.requirements.each do |requirement| %>
+  <li><%= requirement_presentation requirement.value %>:<%=h requirement.skill.name %></li>
+<% end %>
+</ul>
+
+<h3>Sökresultat</h3>
+<ul>
+<% @profiles.each do |profile| %>
+  <li>
+	<%= link_to h(profile.name), profile %> (<%= link_to 'PDF', profile_path(profile, :format => :pdf) %>) 
+	 - <%= rankings_presentation profile, @search %>
+  </li>
+<% end %>
+</ul>
+
+<%= link_to 'Ändra sökvillkor', edit_search_path(@search) %>

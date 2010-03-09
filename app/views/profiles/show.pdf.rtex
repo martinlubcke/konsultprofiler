@@ -1,0 +1,37 @@
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.2pt}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\columnsep}{24pt}
+\setlength\headheight{36pt}
+\rhead{\includegraphics[height=48pt]{<%= Rails.root.join 'public', 'images', 'Knowit.png' %>}}
+\lfoot{<%=l @profile.name %>}
+\cfoot{\thepage}
+\rfoot{\today}
+
+\section*{Konsultprofil - <%=l @profile.name %>}
+\begin{wrapfigure}{l}{0.25\textwidth}
+ \vspace{-20pt}
+ \includegraphics[width=0.25\textwidth]{<%= @profile.image_path %>}
+ \vspace{-25pt}
+\end{wrapfigure}
+<%= RTeX.filters['textile'].call(@profile.description) %>
+
+\begin{multicols}{2}
+\subsection*{Bakgrund}
+\paragraph{Född år:} <%= @profile.birth %>
+
+\subsection*{Teknisk kompetens}
+<% @profile.rankings_by_category.each do |category_name, rankings| %>
+\subsubsection*{<%=h category_name %>}
+\begin{itemize}
+	<% rankings.each do |ranking|%>
+		\item{<%=h ranking.skill.name %>}
+	<% end %>
+\end{itemize}
+<% end %>
+\end{multicols}
+
+<% @profile.assignments.each do |assignment| %>
+  \subsection*{<%= assignment.duration %> <%=l assignment.title %>}
+  <%=l assignment.description %>
+<% end %>

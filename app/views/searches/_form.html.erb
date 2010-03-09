@@ -1,0 +1,11 @@
+<% form_for(@search) do |f| %>
+  <%= f.error_messages %>
+
+  <% f.fields_for :requirements do |rf| %>
+    <%= render 'requirement_fields', :f => rf %>
+  <% end %>
+  <%= link_to_add_fields "Nytt önskemål", f, :requirements %>
+
+
+  <p><%= f.submit 'Sök' %></p>
+<% end %>

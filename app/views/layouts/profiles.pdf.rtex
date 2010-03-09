@@ -1,0 +1,13 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}   % Enter your text in ISO-Latin 1
+\usepackage{swedish}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\begin{document}
+   <%= yield %>
+\end{document}

@@ -1,0 +1,9 @@
+<div class="fields">
+  <p>Titel: <%= f.text_field :title %> <%= link_to_remove_fields "Ta bort uppdrag", f %></p>
+  <p>Period <%= swedish_date_select f, :from %> -
+    <%= swedish_date_select f, :to %></p>
+  <p>
+    Beskrivning: <br />
+    <%= f.text_area :description %>
+  </p>
+</div>

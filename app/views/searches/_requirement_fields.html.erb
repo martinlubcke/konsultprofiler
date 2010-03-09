@@ -1,0 +1,10 @@
+<div class="fields">
+  <%= f.select :value, requirement_pairs %>
+  <% if f.object.skill %>
+    <%= f.object.skill.name %>
+  <% else %>
+    <%= f.select :skill_id, Skill.find(:all, :order => 'name').collect {|s| [s.name, s.id]} %>
+  <% end %>
+  <%= link_to_remove_fields "Ta bort", f %>
+</div>
+	

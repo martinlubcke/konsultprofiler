@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  description: MyText
+  profile_id: 1
+  from: 2010-02-10 07:14:42
+  to: 2010-02-10 07:14:42
+
+two:
+  title: MyString
+  description: MyText
+  profile_id: 1
+  from: 2010-02-10 07:14:42
+  to: 2010-02-10 07:14:42

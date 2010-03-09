@@ -1,0 +1,28 @@
+<% form_for(@profile) do |f| %>
+  <%= f.error_messages %>
+
+  <h3>Personlig information</h3>
+  <p>Förnamn: <%= f.text_field :first_name %></p>
+  <p>Efternamn: <%= f.text_field :last_name %></p>
+  <p>Födelseår: <%= f.text_field :birth %></p>
+  <p>
+    Beskrivning: <br />
+    <%= f.text_area :description %>
+  </p>
+  
+  <h3>Teknisk kompetens</h3>
+  <% f.fields_for :rankings do |rf| %>
+    <%= render 'ranking_fields', :f => rf %>
+  <% end %>
+  <%= link_to_add_fields "Ny ranking", f, :rankings %>
+
+  <h3>Uppdrag</h3>
+  <% f.fields_for :assignments do |af| %>
+	<%= render 'assignment_fields', :f => af %>
+  <% end %>
+  <%= link_to_add_fields "Nytt uppdrag", f, :assignments %>
+
+  <p>
+    <%= f.submit 'Spara' %>
+  </p>
+<% end %>

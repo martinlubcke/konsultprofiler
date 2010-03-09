@@ -1,0 +1,29 @@
+<h1><%=h @profile.first_name %> <%=h @profile.last_name %></h1>
+
+<img src="<%= @profile.html_image_path %>" width=200/>
+<h2>Beskrivning:</h2>
+<%=textilize @profile.description %>
+
+<h2>Persondata</h2>
+<p>Född år: <%=h @profile.birth %></p>
+
+<h2>Teknisk kompetens:</h2>
+<% @profile.rankings_by_category.each do |category_name, rankings| %>
+<h3><%=h category_name %></h3>
+<ul>
+	<% rankings.each do |ranking|%>
+		<li><%=h ranking.skill.name %> (<%= ranking_presentation ranking.value %>)</li>
+	<% end %>
+</ul>
+<% end %>
+
+<h2>Uppdrag:</h2>
+<ul>
+	<% @profile.assignments.each do |assignment|%>
+		<li><b><%=h assignment.title %> (<%=h assignment.duration %>)</b> <%=h assignment.description %></li>
+	<% end %>
+</ul>
+
+<%= link_to 'PDF', profile_path(@profile, :format => :pdf) %> |
+<%= link_to 'Redigera', edit_profile_path(@profile) %> |
+<%= link_to 'Alla konsultprofiler', profiles_path %>

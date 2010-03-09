@@ -1,0 +1,16 @@
+<h1>Tidigare sökningar</h1>
+
+<ul>
+<% @searches.each do |search| %>
+  <li>
+    <b><%=h search.skills.collect {|s| s.name}.sort.join(', ') %></b>
+    (<%= link_to 'Resultat', search %>
+    <%= link_to 'Ändra', edit_search_path(search) %>
+    <%= link_to 'Ta bort', search, :confirm => 'Är du säker?', :method => :delete %>)
+  </li>
+<% end %>
+</ul>
+
+<br />
+
+<%= link_to 'Ny sökning', new_search_path %>
