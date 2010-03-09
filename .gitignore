@@ -3,4 +3,6 @@ log/*.log
 tmp/**/*
 config/database.yml
 db/*.sqlite3
+import/*.xml
+public/images/*.jpg
 

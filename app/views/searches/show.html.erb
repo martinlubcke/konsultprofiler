@@ -9,7 +9,7 @@
 
 <h3>Sökresultat</h3>
 <ul>
-<% @profiles.each do |profile| %>
+<% @search.result.each do |profile| %>
   <li>
 	<%= link_to h(profile.name), profile %> (<%= link_to 'PDF', profile_path(profile, :format => :pdf) %>) 
 	 - <%= rankings_presentation profile, @search %>

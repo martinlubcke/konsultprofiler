@@ -14,12 +14,6 @@ class SearchesController < ApplicationController
   # GET /searches/1.xml
   def show
     @search = Search.find(params[:id], :include => :skills)
-    compulsory = @search.compulsory_skills_ids
-    @profiles = Profile.find(:all, 
-      :include => :rankings,
-      :joins => "JOIN rankings ON rankings.profile_id = profiles.id JOIN requirements ON requirements.skill_id = rankings.skill_id AND requirements.search_id = #{@search.id}", 
-      :select => "profiles.*, SUM(rankings.value * requirements.value) as ranking_value, SUM(CASE WHEN rankings.skill_id IN (#{compulsory.join(',')}) THEN 1 ELSE 0 END) as compulsory_count", 
-      :group => "profiles.id HAVING compulsory_count = #{compulsory.size}", :order => "ranking_value DESC")
 
     respond_to do |format|
       format.html # show.html.erb
