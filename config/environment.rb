@@ -6,6 +6,19 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+### Start WORKAROUND FOR WARNINGS IN RUBYGEMS
+if Gem::VERSION >= "1.3.6"
+    module Rails
+        class GemDependency
+            def requirement
+                r = super
+                (r == Gem::Requirement.default) ? nil : r
+            end
+        end
+    end
+end
+### End WORKAROUND FOR WARNINGS IN RUBYGEMS
+
 Rails::Initializer.run do |config|
   config.gem "RedCloth"
   config.gem "rtex"

@@ -3,8 +3,8 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.xml
   def index
-    if skill_name = params[:skill]
-      @skill = Skill.find_by_name skill_name
+    if params[:skill]
+      @skill = Skill.find params[:skill]
       @profiles = @skill.profiles
     else
       @profiles = Profile.all

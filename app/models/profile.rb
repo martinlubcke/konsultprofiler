@@ -16,14 +16,6 @@ class Profile < ActiveRecord::Base
     rankings.collect {|q| q.skill.category}.uniq
   end
   
-  def rankings_by_category
-    rankings.inject({}) do |h,q|
-      name = q.skill.category.name 
-      h[name] = (h[name] || []) + [q]
-      h
-    end.to_a.sort 
-  end
-  
   def html_image_path
     '/images/' + File.basename(image_path) 
   end

@@ -1,0 +1,7 @@
+<% form_for @skill do |f| %>
+  <p><b>Kategori:</b><%= f.select :skill_category_id, @categories.map {|c| [c.name, c.id]} %></p>
+
+  <p><b>Namn:</b><%= f.text_field :name %></p>
+  
+  <p><%= f.submit "Spara" %></p>
+<% end %>

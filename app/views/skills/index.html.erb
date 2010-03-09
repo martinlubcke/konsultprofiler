@@ -1,0 +1,14 @@
+<h1>Kompetenser</h1>
+
+<% group_by_category(@skills).each do |category_name, skills| %>
+  <b><%=h category_name %></b>
+  <ul>
+	<% skills.each do |skill| %>
+	  <li>
+		<b><%=h skill.name  %></b>
+	    (<%= link_to 'Redigera', edit_skill_path(skill) %>,
+	    <%= link_to 'Ta bort', skill, :confirm => 'Är du säker?', :method => :delete %>)
+      </li>
+	<% end %>
+  </ul>
+<% end %>
