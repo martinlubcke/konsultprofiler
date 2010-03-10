@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :searches
+  map.resources :searches, :except => :show
   map.resources :profiles
   map.resources :skills
 

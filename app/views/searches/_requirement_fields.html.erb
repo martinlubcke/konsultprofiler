@@ -3,7 +3,10 @@
   <% if f.object.skill %>
     <%= f.object.skill.name %>
   <% else %>
-    <%= select_tag "category_for_#{f.object.id}", options_for_select(SkillCategory.all(:order => 'name').collect {|c| [c.name, c.id]}) %>
+<!--
+    <%= select_tag "category_for_#{f.object.id}", 
+			options_for_select(SkillCategory.all(:order => 'name').collect {|c| [c.name, c.id]}),
+			:onchange => 'alert("Byt kompetenser!")' %> -->
     <%= f.select :skill_id, 
 			Skill.find(:all, :order => 'name').collect {|s| [s.name, s.id]},
 			:include_blank => true %>
