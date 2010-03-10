@@ -20,7 +20,7 @@ class SearchesController < ApplicationController
     @search = Search.new(params[:search])
 
     if @search.save
-      redirect_to(@search)
+      redirect_to(edit_search_path(@search))
     else
       render :action => "new"
     end
@@ -30,7 +30,7 @@ class SearchesController < ApplicationController
     @search = Search.find(params[:id])
 
     if @search.update_attributes(params[:search])
-      redirect_to(@search)
+      redirect_to(edit_search_path(@search))
     else
       render :action => "edit"
     end

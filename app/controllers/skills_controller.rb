@@ -17,7 +17,7 @@ class SkillsController < ApplicationController
     @skill = Skill.new(params[:skill])
     
     if @skill.save
-      redirect_to(skills_url)
+      redirect_to(:action => :index)
     else
       render :action => "new" 
     end
