@@ -21,7 +21,7 @@
 \paragraph{Född år:} <%= @profile.birth %>
 
 \subsection*{Teknisk kompetens}
-<% @profile.rankings_by_category.each do |category_name, rankings| %>
+<% group_by_category(@profile.rankings).each do |category_name, rankings| %>
 \subsubsection*{<%=h category_name %>}
 \begin{itemize}
 	<% rankings.each do |ranking|%>
