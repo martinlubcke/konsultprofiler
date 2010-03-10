@@ -1,7 +1,9 @@
 .DS_Store
+Capfile
 log/*.log
 tmp/**/*
 config/database.yml
+config/deploy.rb
 db/*.sqlite3
 import/*.xml
 public/images/*.jpg
