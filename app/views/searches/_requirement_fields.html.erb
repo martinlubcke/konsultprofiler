@@ -3,7 +3,10 @@
   <% if f.object.skill %>
     <%= f.object.skill.name %>
   <% else %>
-    <%= f.select :skill_id, Skill.find(:all, :order => 'name').collect {|s| [s.name, s.id]} %>
+    <%= select_tag "category_for_#{f.object.id}", options_for_select(SkillCategory.all(:order => 'name').collect {|c| [c.name, c.id]}) %>
+    <%= f.select :skill_id, 
+			Skill.find(:all, :order => 'name').collect {|s| [s.name, s.id]},
+			:include_blank => true %>
   <% end %>
   <%= link_to_remove_fields "Ta bort", f %>
 </div>
