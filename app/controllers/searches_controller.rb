@@ -5,7 +5,6 @@ class SearchesController < ApplicationController
 
   def new
     @search = Search.new
-    @search.requirements.build
   end
 
   def edit

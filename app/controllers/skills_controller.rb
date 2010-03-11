@@ -39,4 +39,17 @@ class SkillsController < ApplicationController
 
     redirect_to(skills_url)
   end
+  
+  def selector
+    render :text => help.options_for_select(SkillCategory.find(params[:category_id]).skills.collect {|s| [s.name, s.id]})
+  end
+  
+  def help
+    Helper.instance
+  end
+
+  class Helper
+    include Singleton
+    include ActionView::Helpers::FormOptionsHelper
+  end
 end

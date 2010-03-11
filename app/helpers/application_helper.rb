@@ -19,6 +19,16 @@ module ApplicationHelper
     end
     link_to_function(name, h("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"))
   end
+  
+  def chained_skill_selects_for model, relation
+    select_tag(:category_id, 
+      	options_for_select(["Välj kategori"] + SkillCategory.all(:order => 'name').collect {|c| [c.name, c.id]}),
+      	:onchange => remote_function(:update => "new_#{relation}_skills", 
+      	                             :url => skill_selector_path, 
+      	                             :with => 'Form.Element.serialize(this)')) +
+    select_tag("new_#{relation}_skills", options_for_select(["Välj kategori först"]), 
+		    :name => "#{model}[#{relation}_attributes][new_#{relation}][skill_id]")
+  end
 
   def swedish_date_select(f, association)
     f.date_select association, :discard_day => true,

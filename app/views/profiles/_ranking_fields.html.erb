@@ -3,9 +3,7 @@
   <% if  f.object.skill %>
     <%=h f.object.skill.name %>
   <% else %>
-    <%= f.select :skill_id, 
-		Skill.find(:all, :order => 'name').collect {|s| [s.name, s.id]}, 
-		:include_blank => true %>
+    <%= chained_skill_selects_for :profile, :rankings %>
   <% end %>
   <%= link_to_remove_fields "Ta bort", f %>
 </div>
