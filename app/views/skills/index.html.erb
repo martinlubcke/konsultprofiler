@@ -1,7 +1,7 @@
 <h1>Kompetenser</h1>
 
 <% group_by_category(@skills).each do |category_name, skills| %>
-  <b><%=h category_name %></b>
+  <h2><%=h category_name %></h2>
   <ul>
 	<% skills.each do |skill| %>
 	  <li>

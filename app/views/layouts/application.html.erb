@@ -4,11 +4,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Sökningar</title>
+  <title>Konsultprofiler</title>
   <%= stylesheet_link_tag 'scaffold' %>
   <%= javascript_include_tag :defaults, :cache => true %>
 </head>
 <body>
+
+<div style="float:right;">
+<% if current_user %>
+  Inloggad som 
+  <% if current_profile %>
+	<%= link_to h(current_user.login), profile_path(current_profile) %>
+  <% else %>
+	<%=h current_user.login %>
+  <% end %>
+  (<%= link_to 'Logga ut', logout_path %>)
+<% else %>
+  <%= link_to 'Logga in', login_path %>
+<% end %>
+</div>
 
 <p style="color: green"><%= flash[:notice] %></p>
 

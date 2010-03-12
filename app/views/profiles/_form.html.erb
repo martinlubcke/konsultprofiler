@@ -1,9 +1,11 @@
 <% form_for(@profile) do |f| %>
   <%= f.error_messages %>
 
+  <% if admin? %>
   <h3>Inloggning</h3>
   <% f.fields_for :user do |uf| %>
     <%= render 'user_fields', :f => uf %>
+  <% end %>
   <% end %>
 
   <h3>Personlig information</h3>

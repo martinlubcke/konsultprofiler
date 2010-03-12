@@ -33,14 +33,20 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate
-    redirect_to(login_path) unless current_user
+    force_login unless current_user
   end
   
   def authenticate_admin
-    redirect_to(login_path) unless admin?
+    force_login unless admin?
   end
 
   def authenticate_admin_or_profile_owner
-    redirect_to(login_path) unless admin? || current_profile && [current_profile.munged_name, current_profile.id].include?(params[:id])    
+    force_login unless admin? || current_profile && [current_profile.munged_name, current_profile.id].include?(params[:id])    
+  end
+  
+  def force_login
+    flash[:notice] = "Du har inte befogenheter att se den sidan."
+    session[:acquired_page] = request.request_uri
+    redirect_to login_path
   end
 end
