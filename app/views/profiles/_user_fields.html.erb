@@ -1,6 +1,8 @@
 <div class="fields">
-  <p><b>Inloggning:</b><%= f.text_field :login %></p>
-  <p><b>Epost:</b><%= f.text_field :email %></p>
+  <% if admin? %>	
+    <p><b>Inloggning:</b><%= f.text_field :login %></p>
+    <p><b>Epost:</b><%= f.text_field :email %></p>
+  <% end %>
   <p><b>Lösenord:</b><%= f.password_field :password %></p>
   <p><b>Bekräfta lösenord:</b><%= f.password_field :password_confirmation %></p>
 </div>

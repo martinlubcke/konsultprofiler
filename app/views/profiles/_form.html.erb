@@ -1,20 +1,15 @@
 <% form_for(@profile) do |f| %>
   <%= f.error_messages %>
 
-  <% if admin? %>
   <h3>Inloggning</h3>
   <% f.fields_for :user do |uf| %>
     <%= render 'user_fields', :f => uf %>
   <% end %>
-  <% end %>
-
+  
   <h3>Personlig information</h3>
   <% if @profile.new_record? %>
     <p>Förnamn: <%= f.text_field :first_name %></p>
     <p>Efternamn: <%= f.text_field :last_name %></p>
-  <% else %>
-    <p>Förnamn: <%= @profile.first_name %> <%= f.hidden_field :first_name %></p>
-    <p>Efternamn: <%= @profile.last_name %> <%= f.hidden_field :last_name %></p>
   <% end %>
   <p>Födelseår: <%= f.text_field :birth %></p>
   <p>

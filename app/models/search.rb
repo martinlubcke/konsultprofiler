@@ -9,12 +9,23 @@ class Search < ActiveRecord::Base
   end
   
   def find_result
-    compulsory = requirements.select {|r| r.value == 5}.collect {|r| r.skill_id}
-    Profile.find(:all, 
-      :include => :rankings,
-      :joins => "JOIN rankings ON rankings.profile_id = profiles.id JOIN requirements ON requirements.skill_id = rankings.skill_id AND requirements.search_id = #{id}", 
-      :select => "profiles.*, SUM(rankings.value * requirements.value) as ranking_value, SUM(#{count_if_included compulsory}) as compulsory_count", 
-      :group => "profiles.id HAVING compulsory_count = #{compulsory.size}", :order => "ranking_value DESC")
+    if requirements.empty?
+      Profile.all :conditions => free_text_conditions
+    else
+      compulsory = requirements.select {|r| r.value == 5}.collect {|r| r.skill_id}
+      Profile.all( 
+        :include => :rankings,
+        :joins => "JOIN rankings ON rankings.profile_id = profiles.id JOIN requirements ON requirements.skill_id = rankings.skill_id AND requirements.search_id = #{id}", 
+        :select => "profiles.*, SUM(rankings.value * requirements.value) as ranking_value, SUM(#{count_if_included compulsory}) as compulsory_count", 
+        :conditions => free_text_conditions,
+        :group => "profiles.id HAVING compulsory_count = #{compulsory.size}", 
+        :order => "ranking_value DESC")
+    end
+  end
+  
+  def free_text_conditions
+    words = free_text.scan(/\w+/).collect{|s| "%#{s}%"}
+    [words.collect {'description LIKE ?'}.join(' OR ')] + words
   end
   
   def count_if_included coll

@@ -7,8 +7,10 @@ module SearchesHelper
     requirement_pairs.rassoc(value).first
   end
   
-  def rankings_presentation profile, search
+  def rankings_presentation profile, search, prefix = ''
     rankings = profile.rankings.select {|r| search.skill_ids.include? r.skill_id}
-    rankings.collect {|r| "#{r.skill.name} (#{ranking_presentation(r.value)})"}.join(', ')
+    unless rankings.empty?
+      prefix + rankings.collect {|r| "#{r.skill.name} (#{ranking_presentation(r.value)})"}.join(', ')
+    end
   end
 end
