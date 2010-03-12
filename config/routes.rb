@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :users
   map.resources :user_sessions
-
   map.resources :searches, :except => :show
   map.resources :profiles
   map.resources :skills

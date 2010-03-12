@@ -1,4 +1,6 @@
 <% form_for @skill do |f| %>
+  <%= f.error_messages %>
+
   <p><b>Kategori:</b><%= f.select :skill_category_id, @categories.map {|c| [c.name, c.id]} %></p>
 
   <p><b>Namn:</b><%= f.text_field :name %></p>
