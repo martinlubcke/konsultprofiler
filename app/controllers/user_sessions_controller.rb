@@ -1,14 +1,13 @@
 class UserSessionsController < ApplicationController
   def new
     @user_session = UserSession.new
-    session[:return_to] = request.env['HTTP_REFERER']
    end
 
   def create
     @user_session = UserSession.new(params[:user_session])
 
     if @user_session.save
-      flash[:notice] = "Välkommen #{current_profile ? current_profile.first_name : 'som Administratör'}."
+      flash[:notice] = "Välkommen #{current_profile ? current_profile.first_name : current_user.name}."
       acquired_page = session[:acquired_page]
       session[:acquired_page] = nil
       redirect_to acquired_page || root_url
