@@ -1,4 +1,7 @@
 class SkillsController < ApplicationController
+  before_filter :authenticate_admin, :except => :selector
+  before_filter :authenticate, :only => :selector
+  
   def index
     @skills = Skill.all :include => :category
   end

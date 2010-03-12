@@ -1,4 +1,6 @@
 class SearchesController < ApplicationController
+  before_filter :authenticate
+  
   def index
     @searches = Search.all
   end

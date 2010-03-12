@@ -34,4 +34,12 @@ module ApplicationHelper
     f.date_select association, :discard_day => true,
       :use_month_names => %w{Jan Feb Mar Apr Maj Jun Jul Aug Sep Okt Nov Dec}
   end
+  
+  def standard_links
+    links = []
+    links.push(link_to 'Alla profiler', profiles_path) if !current_page?(profiles_path)
+    links.push(link_to 'Sök profil', new_search_path) if current_user && !current_page?(new_search_path)
+    links.push(link_to 'Kompetenser', skills_path) if admin? && !current_page?(skills_path)
+    links
+  end
 end

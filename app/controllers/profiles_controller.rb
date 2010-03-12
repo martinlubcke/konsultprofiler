@@ -1,4 +1,7 @@
 class ProfilesController < ApplicationController
+  before_filter :authenticate_admin, :only => [:new, :create, :destroy]
+  before_filter :authenticate_admin_or_profile_owner, :only => [:edit, :update]
+  
   def index
     @profiles = Profile.all
   end
@@ -14,10 +17,12 @@ class ProfilesController < ApplicationController
 
   def new
     @profile = Profile.new
+    @profile.ensure_user
   end
 
   def edit
     @profile = Profile.find(params[:id])
+    @profile.ensure_user
   end
 
   def create

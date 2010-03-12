@@ -10,12 +10,18 @@ class Profile < ActiveRecord::Base
     :include => {:skill => :category},
     :order => 'skills.name'
   has_many :skills, :through => :rankings
+  has_one :user
   
   accepts_nested_attributes_for :assignments, :allow_destroy => true
   accepts_nested_attributes_for :rankings, :allow_destroy => true
+  accepts_nested_attributes_for :user
   
-  def after_initialize
-    #self.login ||= (first_name.strip_dots[0,3] + last_name.strip_dots[0,3]).downcase
+  def ensure_user
+    unless user
+      login = (first_name.strip_dots[0,3] + last_name.strip_dots[0,3]).downcase
+      user = build_user :login => login, :email => login + '@knowit.se',
+        :password => 'banan', :password_confirmation => 'banan'
+    end
   end
   
   def name
