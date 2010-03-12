@@ -1,7 +1,4 @@
 class SearchesController < ApplicationController
-  before_filter :authenticate, :except => :destroy
-  before_filter :authenticate_admin, :only => :destroy
-  
   def index
     @searches = Search.all
   end

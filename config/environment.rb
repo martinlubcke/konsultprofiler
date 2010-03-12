@@ -22,6 +22,7 @@ end
 Rails::Initializer.run do |config|
   config.gem "RedCloth"
   config.gem "rtex"
+  config.gem "authlogic"
 
   config.time_zone = 'UTC'
 end

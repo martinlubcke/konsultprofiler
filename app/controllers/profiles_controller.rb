@@ -1,8 +1,4 @@
 class ProfilesController < ApplicationController
-  before_filter :authenticate_with_id, :except => [:new, :create, :destroy, :index, :show]
-  before_filter :authenticate_admin, :only => [:new, :create, :destroy]
-  before_filter :authenticate, :only => :show
-
   def index
     @profiles = Profile.all
   end

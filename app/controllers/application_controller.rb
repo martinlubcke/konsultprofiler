@@ -8,35 +8,15 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
+  helper_method :current_user
+  
   private
-  def authenticate level = :any_user 
-    unless params[:format] == 'pdf'
-      authenticate_or_request_with_http_basic 'Konsultprofiler' do |login, password|
-        set_user(login, password, level)
-      end
-    end
+  def current_user_session
+    return @current_user_session if defined?(@current_user_session)
+    @current_user_session = UserSession.find
   end
   
-  def authenticate_with_id
-    authenticate params[:id]
-  end
-  
-  def authenticate_admin
-    authenticate :admin
-  end
-
-  def set_user login=nil, password=nil, level=:any_user
-    if login == 'admin' && password == 'apa'
-      session[:user] = login
-      session[:user_name] = "Administratör"
-      return true
-    elsif login && (p = Profile.find_by_login(login)) && p.encrypted_password == password && (level == :any_user || level == p.munged_name)
-      session[:user] = login
-      session[:user_name] = p.name
-      return true
-    end
-    session[:user] = nil
-    session[:user_name] = nil
-    return false
+  def current_user
+    current_user_session && current_user_session.record
   end
 end

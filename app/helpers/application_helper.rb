@@ -34,12 +34,4 @@ module ApplicationHelper
     f.date_select association, :discard_day => true,
       :use_month_names => %w{Jan Feb Mar Apr Maj Jun Jul Aug Sep Okt Nov Dec}
   end
-  
-  def admin?
-    session[:user] == 'admin'
-  end
-  
-  def user? name
-    session[:user_name] == name
-  end
 end
