@@ -4,9 +4,9 @@
   <% @profiles.each do |profile| %>
     <li>
       <b><%= link_to h(profile.first_name + " " + profile.last_name), profile %></b>
-      (<%= link_to 'PDF', profile_path(profile, :format => :pdf) %>,
-       <%= link_to 'Redigera', edit_profile_path(profile) %>,
-       <%= link_to 'Ta bort', profile, :confirm => 'Är du säker?', :method => :delete %>)
+      (<%= [link_to('PDF', profile_path(profile, :format => :pdf)),
+       		(link_to('Redigera', edit_profile_path(profile)) if (admin? || user?(profile.name))),
+       		(link_to('Ta bort', profile, :confirm => 'Är du säker?', :method => :delete) if admin?)].compact.join(', ') %>)
     </li>
   <% end %>
 </ul>

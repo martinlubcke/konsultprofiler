@@ -2,8 +2,15 @@
   <%= f.error_messages %>
 
   <h3>Personlig information</h3>
-  <p>Förnamn: <%= f.text_field :first_name %></p>
-  <p>Efternamn: <%= f.text_field :last_name %></p>
+  <% if @profile.new_record? %>
+    <p>Förnamn: <%= f.text_field :first_name %></p>
+    <p>Efternamn: <%= f.text_field :last_name %></p>
+  <% else %>
+    <p>Förnamn: <%= @profile.first_name %> <%= f.hidden_field :first_name %></p>
+    <p>Efternamn: <%= @profile.last_name %> <%= f.hidden_field :last_name %></p>
+  <% end %>
+  <p>Login: <%= f.text_field :login %></p>
+  <p>Lösenord: <%= f.password_field :encrypted_password %></p>
   <p>Födelseår: <%= f.text_field :birth %></p>
   <p>
     Beskrivning: <br />

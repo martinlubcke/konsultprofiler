@@ -1,3 +1,9 @@
+class String
+  def strip_dots
+    %w{ÅA åa ÄA äa ÖO öo ÜU üu}.inject(self) {|s,r| s.gsub *r.scan(/./)}
+  end
+end 
+
 class Profile < ActiveRecord::Base
   has_many :assignments
   has_many :rankings, :dependent => :destroy, 
@@ -7,6 +13,10 @@ class Profile < ActiveRecord::Base
   
   accepts_nested_attributes_for :assignments, :allow_destroy => true
   accepts_nested_attributes_for :rankings, :allow_destroy => true
+  
+  def after_initialize
+    #self.login ||= (first_name.strip_dots[0,3] + last_name.strip_dots[0,3]).downcase
+  end
   
   def name
     first_name + " " + last_name
@@ -23,10 +33,8 @@ class Profile < ActiveRecord::Base
   def self.find id, *more
     if /_/.match id.to_s
       first_name, last_name = *id.to_s.split('_').collect {|s| s.gsub '-', ' '}
-      find_by_first_name_and_last_name(first_name, last_name, more) || super
-    else
-      super
-    end
+      find_by_first_name_and_last_name(first_name, last_name, more)
+    end || super
   end
   
   def to_param
@@ -34,7 +42,7 @@ class Profile < ActiveRecord::Base
   end
   
   def file_name
-    %w{ÅA åa ÄA äa ÖO öo ÜU üu}.inject(munged_name) {|s,r| s.gsub *r.scan(/./)}
+    munged_name.strip_dots
   end
   
   def image_path
