@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
   
   def admin?
-    current_user && current_user.login == 'admin'
+    current_user && current_user.is_admin
   end
   
   def authenticate

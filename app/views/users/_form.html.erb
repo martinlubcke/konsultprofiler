@@ -1,0 +1,13 @@
+<% form_for @user do |f| %>
+  <%= f.error_messages %>
+  
+  <% unless @user.login == 'admin' %>
+    <p><b>Login:</b> <%= f.text_field :login %></p>
+    <p><b>Administratör:</b> <%= f.check_box:is_admin %></p>
+  <% end %>
+  <p><b>Namn:</b> <%= f.text_field :name, :readonly => (@user.login == 'admin') %></p>
+  <p><b>Epost:</b> <%= f.text_field :email %></p>
+  <p><b>Lösenord:</b> <%= f.password_field :password %></p>
+  <p><b>Bekräfta lösenord:</b> <%= f.password_field :password_confirmation %></p>
+  <%= f.submit 'Spara' %>
+<% end %>

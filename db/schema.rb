@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100312162435) do
+ActiveRecord::Schema.define(:version => 20100312163616) do
 
   create_table "assignments", :force => true do |t|
     t.string   "title"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20100312162435) do
     t.datetime "updated_at"
     t.integer  "profile_id"
     t.string   "name"
+    t.boolean  "is_admin"
   end
 
 end
