@@ -1,6 +1,8 @@
 class ProfilesController < ApplicationController
-  before_filter :authenticate_admin, :only => [:new, :create, :destroy]
+  before_filter :authenticate_admin, :except => [:edit, :update, :show, :index]
   before_filter :authenticate_admin_or_profile_owner, :only => [:edit, :update]
+  before_filter :authenticate_pdf, :only => [:show]
+  before_filter :authenticate, :only => [:index]
   
   def index
     @profiles = Profile.all

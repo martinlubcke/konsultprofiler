@@ -2,6 +2,4 @@
 
 <%= render :partial => 'form' %>
 
-<%= link_to 'Visa', @profile %> |
-<%= link_to 'Visa som PDF', profile_path(@profile, :format => :pdf) %> |
-<%= link_to 'Alla konsultprofiler', profiles_path %>
+<%= (links_for(@profile) + standard_links).join ' | ' %>

@@ -24,7 +24,7 @@ class Search < ActiveRecord::Base
   end
   
   def free_text_conditions
-    words = free_text.scan(/\w+/).collect{|s| "%#{s}%"}
+    words = free_text.to_s.scan(/\w+/).collect{|s| "%#{s}%"}
     [words.collect {'description LIKE ?'}.join(' OR ')] + words
   end
   
@@ -34,5 +34,9 @@ class Search < ActiveRecord::Base
     else
       "CASE WHEN rankings.skill_id IN (#{coll.join(',')}) THEN 1 ELSE 0 END"
     end
+  end
+  
+  def presentation
+    '"' + free_text.to_s + '" (' + skills.collect {|s| s.name}.sort.join(', ') + ')'
   end
 end

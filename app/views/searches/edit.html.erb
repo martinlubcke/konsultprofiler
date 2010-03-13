@@ -7,5 +7,4 @@
 <h2>Resultat</h2>
 <%= render 'result' %>
 
-<%= link_to 'Alla sökningar', searches_path %> |
-<%= link_to 'Alla konsultprofiler', profiles_path %>
+<%= ([link_to 'Tidigare sökningar', searches_path] + standard_links).join ' | ' %>

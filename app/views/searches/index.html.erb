@@ -3,7 +3,7 @@
 <ul>
 <% @searches.each do |search| %>
   <li>
-    <b><%= link_to h(search.skills.collect {|s| s.name}.sort.join(', ')), edit_search_path(search) %></b>
+    <b><%= link_to h(search.presentation), edit_search_path(search) %></b>
     (<%= link_to 'Ta bort', search, :confirm => 'Är du säker?', :method => :delete %>)
   </li>
 <% end %>
@@ -11,4 +11,4 @@
 
 <br />
 
-<%= link_to 'Ny sökning', new_search_path %>
+<%= standard_links.join ' | ' %>

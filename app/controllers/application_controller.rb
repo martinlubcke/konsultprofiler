@@ -36,6 +36,10 @@ class ApplicationController < ActionController::Base
     force_login unless current_user
   end
   
+  def authenticate_pdf
+    authenticate unless params[:format] == 'pdf' 
+  end
+  
   def authenticate_admin
     force_login unless admin?
   end

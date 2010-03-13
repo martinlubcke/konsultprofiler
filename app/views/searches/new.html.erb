@@ -1,3 +1,6 @@
 <h1>Ny sökning</h1>
 
 <%= render :partial => 'form' %>
+
+<%= ([link_to 'Tidigare sökningar', searches_path] + standard_links).join ' | ' %>
+
