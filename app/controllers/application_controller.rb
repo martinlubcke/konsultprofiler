@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  filter_parameter_logging :password
+  filter_parameter_logging :password_confirmation
   
   helper_method :current_user
   helper_method :current_profile
@@ -46,6 +46,10 @@ class ApplicationController < ActionController::Base
 
   def authenticate_admin_or_profile_owner
     force_login unless admin? || current_user.munged_name == params[:id] || current_profile.id.to_s == params[:id]     
+  end
+  
+  def authenticate_admin_or_user_owner
+    force_login unless admin? || current_user.munged_name == params[:id] || current_user.id.to_s == params[:id]     
   end
   
   def force_login

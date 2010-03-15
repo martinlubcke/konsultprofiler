@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_admin 
+  before_filter :authenticate_admin, :except => [:show, :edit, :update]
+  before_filter :authenticate_admin_or_user_owner, :only => [:show, :edit, :update]
   
   def index
     @all_users = params[:all]
@@ -20,7 +21,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    
+
+    set_sensitive_info
+
     if @user.save
       redirect_to(:action => :index)
     else
@@ -31,8 +34,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
+    set_sensitive_info
+
     if @user.update_attributes(params[:user])
-      redirect_to(users_url)
+      redirect_to(user_url(@user))
     else
       render :action => "edit"
     end
@@ -43,5 +48,17 @@ class UsersController < ApplicationController
     @user.destroy
 
     redirect_to(users_url)
+  end
+  
+  private
+  def set_sensitive_info
+    if (@user == current_user) || (admin? && !@user.is_admin)
+      @user.login = params[:user][:login]
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password_confirmation]
+    end
+    if current_user.is_root_admin? && !@user.is_root_admin?
+      @user.is_admin = params[:user][:is_admin]
+    end
   end
 end

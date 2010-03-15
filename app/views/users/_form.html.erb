@@ -1,7 +1,7 @@
 <% form_for @user do |f| %>
   <%= f.error_messages %>
   
-  <% unless @user.is_root_admin? %>
+  <% if admin? && !@user.is_root_admin? %>
     <p><b>Login:</b> <%= f.text_field :login %></p>
     <p><b>Administratör:</b> <%= f.check_box:is_admin %></p>
   <% end %>

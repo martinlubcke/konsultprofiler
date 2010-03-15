@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   named_scope :without_profile, :joins => 'LEFT JOIN profiles ON profiles.user_id = users.id', :conditions => 'profiles.id IS NULL'
   
   before_validation :set_munged_name
+  
+  attr_protected :login, :is_admin, :password, :password_confirmation
 
   def to_param
     munged_name
