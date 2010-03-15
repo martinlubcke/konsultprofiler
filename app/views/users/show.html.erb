@@ -1,6 +1,6 @@
-<h1><%=h @user.name %> <%= '(är administatör)' if @user.is_admin %></h1>
+<h1><%=h @user.name %> <%= '(är administatör)' if @user.is_admin && !@user.is_root_admin? %></h1>
 
 <p><b>Login:</b> <%=h @user.login %></p>
 <p><b>Email:</b> <%=h @user.email %></p>
 
-<%= ([link_to 'Redigera', edit_user_path(@user)] + standard_links).join ' | ' %>
+<%= (links_for_user(@user) + standard_links).compact.join ' | ' %>

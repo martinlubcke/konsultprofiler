@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_filter :authenticate_admin 
   
   def index
-    @users = User.all :conditions => {:profile_id => nil}
+    @all_users = params[:all]
+    @users = @all_users ? User.all : User.without_profile
   end
 
   def new

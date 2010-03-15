@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100312163616) do
+ActiveRecord::Schema.define(:version => 20100314150942) do
 
   create_table "assignments", :force => true do |t|
     t.string   "title"
@@ -22,12 +22,11 @@ ActiveRecord::Schema.define(:version => 20100312163616) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
     t.integer  "birth"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "rankings", :force => true do |t|
@@ -73,9 +72,10 @@ ActiveRecord::Schema.define(:version => 20100312163616) do
     t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "profile_id"
-    t.string   "name"
     t.boolean  "is_admin"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "munged_name"
   end
 
 end

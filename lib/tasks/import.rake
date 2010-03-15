@@ -37,7 +37,7 @@ task :import => :environment do
   def date_or_nil date
     date.empty? ? nil : Time.utc(*date.scan(/\d+/))
   end
-
+  
   Dir.glob(Rails.root.join 'import', '*.xml') do |file_name|
     begin
       puts "Reading file #{File.basename  file_name}..."
@@ -47,12 +47,13 @@ task :import => :environment do
       root = Document.new(File.new(file_name)).root
       old = /Old/.match root.attributes['Template']
       root.get_content /Sammanfattning/ do |element, name, content, infos|
-        p.first_name, p.last_name = *infos
+        p.build_user :first_name => infos[0], :last_name => infos[1]
         p.description = content
       end
       if old
         root.get_content /Namn/ do |element, name, content, infos|
-          p.first_name, p.last_name = *content.split(' ')
+          name = *content.split(' ')
+          p.build_user :first_name => name[0], :last_name => name[1]
         end
       end
       p.birth = root.get_content(/Födelseår/).to_i
@@ -72,10 +73,14 @@ task :import => :environment do
         desc = content || element.get_content(/Uppdrag/)
         p.assignments.push(Assignment.new :profile => p, :title => title, :from => start, :to => stop, :description => desc)
       end
-      p.save
-      puts "   ...Done"
-    rescue
-      puts "   ...could not read #{File.basename file_name}"
+      p.user.ensure_login
+      unless p.save
+        puts p.errors.full_messages
+      else
+        puts "   ...Done"
+      end
+    #rescue
+    #  puts "   ...could not read #{File.basename file_name}"
     end
   end
 end

@@ -5,9 +5,12 @@
     <p><b>Login:</b> <%= f.text_field :login %></p>
     <p><b>Administratör:</b> <%= f.check_box:is_admin %></p>
   <% end %>
-  <p><b>Namn:</b> <%= f.text_field :name %></p>
+  <p><b>Förnamn:</b> <%= f.text_field :first_name %></p>
+  <p><b>Efternamn:</b> <%= f.text_field :last_name %></p>
   <p><b>Epost:</b> <%= f.text_field :email %></p>
-  <p><b>Lösenord:</b> <%= f.password_field :password %></p>
-  <p><b>Bekräfta lösenord:</b> <%= f.password_field :password_confirmation %></p>
+  <% unless @user.is_root_admin? && !current_user.is_root_admin? %>
+    <p><b>Lösenord:</b> <%= f.password_field :password %></p>
+    <p><b>Bekräfta lösenord:</b> <%= f.password_field :password_confirmation %></p>
+  <% end %>
   <%= f.submit 'Spara' %>
 <% end %>

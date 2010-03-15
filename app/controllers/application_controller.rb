@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_or_profile_owner
-    force_login unless admin? || current_profile && [current_profile.munged_name, current_profile.id.to_s].include?(params[:id])    
+    #force_login unless admin? || current_user.munged_name == params[:id] || current_profile.id.to_s == params[:id]     
   end
   
   def force_login

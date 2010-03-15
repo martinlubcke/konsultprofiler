@@ -7,7 +7,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
 
     if @user_session.save
-      flash[:notice] = "Välkommen #{current_profile ? current_profile.first_name : current_user.name}."
+      flash[:notice] = "Välkommen #{current_user.first_name}."
       acquired_page = session[:acquired_page]
       session[:acquired_page] = nil
       redirect_to acquired_page || root_url

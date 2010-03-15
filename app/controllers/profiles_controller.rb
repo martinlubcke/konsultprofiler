@@ -5,11 +5,11 @@ class ProfilesController < ApplicationController
   before_filter :authenticate, :only => [:index]
   
   def index
-    @profiles = Profile.all
+    @profiles = Profile.all :include => :user
   end
 
   def show
-    @profile = Profile.find(params[:id], :include => [{:rankings => {:skill => :category}}, :assignments])
+    @profile = Profile.find(params[:id], :include => [{:rankings => {:skill => :category}}, :assignments, :user])
 
     respond_to do |format|
       format.html
@@ -19,12 +19,10 @@ class ProfilesController < ApplicationController
 
   def new
     @profile = Profile.new
-    @profile.ensure_user
   end
 
   def edit
     @profile = Profile.find(params[:id])
-    @profile.ensure_user
   end
 
   def create

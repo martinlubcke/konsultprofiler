@@ -5,7 +5,6 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :last_name
       t.integer :birth
       t.text :description
-
       t.timestamps
     end
   end

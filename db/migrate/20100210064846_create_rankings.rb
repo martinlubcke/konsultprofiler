@@ -4,7 +4,6 @@ class CreateRankings < ActiveRecord::Migration
       t.integer :skill_id
       t.integer :profile_id
       t.integer :value, :default => 1
-
       t.timestamps
     end
   end

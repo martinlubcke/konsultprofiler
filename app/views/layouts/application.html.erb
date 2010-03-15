@@ -14,7 +14,7 @@
 <% if current_user %>
   Inloggad som 
   <% if current_profile %>
-	<%= link_to h(current_profile.name), profile_path(current_profile) %>
+	<%= link_to h(current_user.name), profile_path(current_profile) %>
   <% else %>
 	<%=h current_user.name %>
   <% end %>

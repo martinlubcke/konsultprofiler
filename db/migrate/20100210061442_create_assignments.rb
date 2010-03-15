@@ -6,7 +6,6 @@ class CreateAssignments < ActiveRecord::Migration
       t.integer :profile_id
       t.datetime :from
       t.datetime :to
-
       t.timestamps
     end
   end

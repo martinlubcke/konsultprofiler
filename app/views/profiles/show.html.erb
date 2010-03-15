@@ -1,6 +1,6 @@
-<h1><%=h @profile.first_name %> <%=h @profile.last_name %></h1>
+<h1><%=h @profile.name %></h1>
 
-<img style="float:right;" src="<%= @profile.html_image_path %>" width=200/>
+<img style="float:right;" src="<%= @profile.user.html_image_path %>" width=200/>
 <h2>Beskrivning:</h2>
 <%=textilize @profile.description %>
 

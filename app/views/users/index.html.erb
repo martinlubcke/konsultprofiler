@@ -1,10 +1,15 @@
 <h1>Användare</h1>
 
-<p><b>OBS!</b> De användare som kopplats till profiler redigeras genom profilen.</p>
-
+<% if @all_users %>
+  <%= link_to 'Visa bara användare utan profiler', users_path %>
+<% else %>
+  <%= link_to 'Visa alla användare', users_path(:all => true) %>
+<% end %>
 <ul>
 	<% @users.each do |user| %>
-	  <li><%= link_to h(user.name), user_path(user) %> (<%=h user.login %>, <%=h user.email %>)</li>
+	  <li>
+	    <%= link_to h(user.name), user_path(user) %> (<%=h user.login %>, <%=h user.email %>)
+	  </li>
 	<% end %>	
 </ul>
 
