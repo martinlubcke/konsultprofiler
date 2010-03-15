@@ -1,7 +1,7 @@
 module ProfilesHelper
   def links_for profile
     links = []
-    links.push(link_to('PDF', profile_path(profile, :format => :pdf))) 
+    links.push(link_to('PDF', pdf_path(profile))) 
     links.push(mail_to('', 'Skicka profil', 
         :subject => 'Konsulten jag vill tipsa om', 
         :body => body_for(profile)))

@@ -8,6 +8,9 @@ module ApplicationHelper
     ranking_pairs.rassoc(value).first
   end
 
+  # These two functions are taken from railscasts. They are explained here:
+  # http://media.railscasts.com/videos/197_nested_model_form_part_2.mov
+  # Note that most of tje Ajax logic i in the file 'application.js'
   def link_to_remove_fields(name, f)
     f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
   end
