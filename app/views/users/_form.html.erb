@@ -1,6 +1,10 @@
-<% form_for @user do |f| %>
+<% form_for @user, :html => { :multipart => true } do |f| %>
   <%= f.error_messages %>
   
+  <div style="float:right;">
+    <p><%= image_tag @user.photo.url, :width => 200 %></p>
+    <%= f.file_field :photo %>
+  </div>
   <% if admin? && !@user.is_root_admin? %>
     <p><b>Login:</b> <%= f.text_field :login %></p>
     <p><b>Administratör:</b> <%= f.check_box:is_admin %></p>
@@ -12,5 +16,6 @@
     <p><b>Lösenord:</b> <%= f.password_field :password %></p>
     <p><b>Bekräfta lösenord:</b> <%= f.password_field :password_confirmation %></p>
   <% end %>
+  
   <%= f.submit 'Spara' %>
 <% end %>

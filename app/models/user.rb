@@ -12,6 +12,13 @@ class User < ActiveRecord::Base
   acts_as_authentic
   
   has_one :profile
+  has_attached_file :photo,# Needs imagemagic :styles => { :thumb => "150x150>", :small => "200x200>" }
+                    :url  => "/assets/users/:id/:style/face.:extension",
+                    :path => ":rails_root/public/assets/users/:id/:style/face.:extension"
+  
+  #validates_attachment_presence :photo
+  validates_attachment_size :photo, :less_than => 5.megabytes
+  #validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
   
   named_scope :without_profile, :joins => 'LEFT JOIN profiles ON profiles.user_id = users.id', :conditions => 'profiles.id IS NULL'
   
@@ -31,7 +38,7 @@ class User < ActiveRecord::Base
   
   def is_root_admin?
     login == 'admin'
-  end
+  end  
   
   def ensure_login
     self.login ||= (first_name.strip_dots[0,3] + last_name.strip_dots[0,3]).downcase
@@ -42,27 +49,6 @@ class User < ActiveRecord::Base
   
   def name
     [first_name, last_name].select {|s| s && !s.empty?}.join(' ')
-  end
-  
-  def file_name
-    munged_name.strip_dots
-  end
-  
-  def image_path
-    p = jpeg_file_path file_name
-    if p.exist?
-      p
-    else
-      jpeg_file_path 'Default'
-    end    
-  end
-  
-  def html_image_path
-    '/images/' + File.basename(image_path) 
-  end
-
-  def jpeg_file_path name
-    Rails.root.join 'public', 'images', name + '.jpg'
   end
   
   def set_munged_name

@@ -9,11 +9,14 @@
 \rfoot{\today}
 
 \section*{Konsultprofil - <%=l @profile.name %>}
+
+<% if @profile.user.photo? %>
 \begin{wrapfigure}{l}{0.25\textwidth}
  \vspace{-20pt}
- \includegraphics[width=0.25\textwidth]{<%= @profile.user.image_path %>}
+ \includegraphics[width=0.25\textwidth]{<%= @profile.user.photo.path %>}
  \vspace{-25pt}
 \end{wrapfigure}
+<% end %>
 <%= RTeX.filters['textile'].call(@profile.description) %>
 
 \begin{multicols}{2}

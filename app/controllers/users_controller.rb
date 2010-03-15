@@ -52,13 +52,14 @@ class UsersController < ApplicationController
   
   private
   def set_sensitive_info
+    u = params[:user]
     if (@user == current_user) || (admin? && !@user.is_admin)
-      @user.login = params[:user][:login]
-      @user.password = params[:user][:password]
-      @user.password_confirmation = params[:user][:password_confirmation]
+      @user.login = u[:login] if u[:login]
+      @user.password = u[:password] if u[:password]
+      @user.password_confirmation = u[:password_confirmation] if u[:password_confirmation]
     end
     if current_user.is_root_admin? && !@user.is_root_admin?
-      @user.is_admin = params[:user][:is_admin]
+      @user.is_admin = u[:is_admin] if u[:is_admin]
     end
   end
 end

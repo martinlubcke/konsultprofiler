@@ -45,11 +45,15 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_or_profile_owner
-    force_login unless admin? || current_user.munged_name == params[:id] || current_profile.id.to_s == params[:id]     
+    force_login unless admin? || owner?(current_profile)     
   end
   
   def authenticate_admin_or_user_owner
-    force_login unless admin? || current_user.munged_name == params[:id] || current_user.id.to_s == params[:id]     
+    force_login unless admin? || owner?(current_user)     
+  end
+  
+  def owner? item
+    [current_user.munged_name, item.id.to_s].include?(params[:id])
   end
   
   def force_login
