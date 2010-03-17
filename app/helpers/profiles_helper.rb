@@ -11,6 +11,6 @@ module ProfilesHelper
   end
   
   def body_for profile
-    "Hej,\rKonsulten jag rekomenderar heter #{profile.name}.\rHär kan du läsa mer om konsulten:\r#{profile_url(profile, :format => :pdf)}\r\rmvh\r#{current_user.name}"
+    "Hej,\rKonsulten jag rekommenderar heter #{profile.name}.\rHär kan du läsa mer om konsulten:\r#{profile_url(profile, :format => :pdf)}\r\rmvh\r#{current_user.name}"
   end
 end
