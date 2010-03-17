@@ -1,0 +1,9 @@
+if @search_name.empty?
+  page.replace_html 'users', 'Skriv in ett namn.'
+else
+  if @users.empty?
+    page.replace_html 'users', 'Ingen användare funnen.'
+  else
+    page.replace_html 'users', render(@users)
+  end
+end

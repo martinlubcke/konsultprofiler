@@ -40,6 +40,7 @@ module ApplicationHelper
   
   def standard_links
     links = []
+    links.push(link_to 'Ny profil', new_profile_path) if admin? && !current_page?(new_profile_path)
     links.push(link_to 'Alla profiler', profiles_path) unless current_page?(profiles_path)
     links.push(link_to 'Sök profil', new_search_path) if current_user && !current_page?(new_search_path)
     links.push(link_to 'Kompetenser', skills_path) if admin? && !current_page?(skills_path)

@@ -1,0 +1,7 @@
+<h1>Hitta ett ansikte</h1>
+
+<p><b>Namn:</b> <%= text_field_tag :name %></p>
+<%= periodically_call_remote :url => find_user_result_url, :frequency => 1, :with => 'Form.Element.serialize($("name"))' %>
+
+<div id="users">
+</div>

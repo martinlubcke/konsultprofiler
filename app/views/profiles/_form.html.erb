@@ -1,8 +1,15 @@
 <% form_for(@profile) do |f| %>
   <%= f.error_messages %>
 
-  <%= link_to 'Ändra användarinställningar', edit_user_path(@profile.user) %>
-
+  <% if @profile.new_record? %>
+  	<p>
+	  Användare: <%= f.select :user_id, User.without_profile(:order => 'name').reverse.collect {|u| [u.name, u.id]} %>
+	  <%= link_to 'Skapa ny användare', new_user_path %>
+	</p>	
+  <% else %>
+    <%= link_to 'Ändra användarinställningar', edit_user_path(@profile.user) %>
+  <% end %>
+  
   <h3>Personlig information</h3>
   <p>Födelseår: <%= f.text_field :birth %></p>
   <p>

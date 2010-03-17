@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
                     :path => ":rails_root/public/assets/users/:id/:style/face.:extension"
   
   #validates_attachment_presence :photo
-  validates_attachment_size :photo, :less_than => 5.megabytes
+  #validates_attachment_size :photo, :less_than => 5.megabytes
   #validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
   
   named_scope :without_profile, :joins => 'LEFT JOIN profiles ON profiles.user_id = users.id', :conditions => 'profiles.id IS NULL'
