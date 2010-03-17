@@ -5,14 +5,14 @@
     <p><%= image_tag @user.photo.url, :width => 200 %></p>
     <%= f.file_field :photo %>
   </div>
-  <% if admin? && !@user.is_root_admin? %>
-    <p><b>Login:</b> <%= f.text_field :login %></p>
+  <% if (admin? && current_user == @user) || admin? && !@user.is_admin || current_user.is_root_admin? %>
     <p><b>Administratör:</b> <%= f.check_box:is_admin %></p>
   <% end %>
-  <p><b>Förnamn:</b> <%= f.text_field :first_name %></p>
-  <p><b>Efternamn:</b> <%= f.text_field :last_name %></p>
-  <p><b>Epost:</b> <%= f.text_field :email %></p>
-  <% unless @user.is_root_admin? && !current_user.is_root_admin? %>
+  <% if current_user == @user || admin? && !@user.is_admin || current_user.is_root_admin? %>
+    <p><b>Login:</b> <%= f.text_field :login %></p>
+    <p><b>Förnamn:</b> <%= f.text_field :first_name %></p>
+    <p><b>Efternamn:</b> <%= f.text_field :last_name %></p>
+    <p><b>Epost:</b> <%= f.text_field :email %></p>
     <p><b>Lösenord:</b> <%= f.password_field :password %></p>
     <p><b>Bekräfta lösenord:</b> <%= f.password_field :password_confirmation %></p>
   <% end %>
