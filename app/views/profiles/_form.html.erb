@@ -4,16 +4,12 @@
   <%= link_to 'Ändra användarinställningar', edit_user_path(@profile.user) %>
 
   <h3>Personlig information</h3>
-  <% if @profile.new_record? %>
-    <p>Förnamn: <%= f.text_field :first_name %></p>
-    <p>Efternamn: <%= f.text_field :last_name %></p>
-  <% end %>
   <p>Födelseår: <%= f.text_field :birth %></p>
   <p>
     Beskrivning: <br />
     <%= f.text_area :description %>
   </p>
-  
+
   <h3>Teknisk kompetens</h3>
   <% f.fields_for :rankings do |rf| %>
     <%= render 'ranking_fields', :f => rf %>

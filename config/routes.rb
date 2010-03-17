@@ -7,7 +7,9 @@ ActionController::Routing::Routes.draw do |map|
   map.skill_selector 'skill_selector', :controller => :skills, :action => :selector
   map.login 'login', :controller => :user_sessions, :action => :new
   map.logout 'logout', :controller => :user_sessions, :action => :destroy
-  map.pdf ':id.pdf', :controller => 'profiles', :action => 'show', :format => 'pdf'
+  map.pdf ':id.pdf', :controller => :profiles, :action => :show, :format => 'pdf'
+  map.find_user 'find_user', :controller => :users, :action => :find
+  map.find_user_result 'find_user_result', :controller => :users, :action => :find_result
   
   map.root :controller => :profiles
 end

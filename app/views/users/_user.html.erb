@@ -1,0 +1,6 @@
+<div style="float:left;margin:2px;">
+  <% if user.photo? %>
+	  <%= image_tag user.photo.url, :width => 100 %>
+  <% end %>
+  <p><%= link_to_if current_user, h(user.name), user_path(user) %></p>
+</div>

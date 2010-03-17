@@ -34,6 +34,8 @@
 <% end %>
 \end{multicols}
 
+\section*{Tidigare uppdrag}
+
 <% @profile.assignments.each do |assignment| %>
   \subsection*{<%= assignment.duration %> <%=l assignment.title %>}
   <%=l assignment.description %>

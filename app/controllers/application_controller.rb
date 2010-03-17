@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
   
   def owner? item
-    [current_user.munged_name, item.id.to_s].include?(params[:id])
+    current_user && [current_user.munged_name, item.id.to_s].include?(params[:id])
   end
   
   def force_login

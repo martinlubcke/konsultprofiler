@@ -1,7 +1,6 @@
-<h1><%=h @user.name %> <%= '(är administatör)' if @user.is_admin && !@user.is_root_admin? %></h1>
+<h1><%=h @user.name %> <%= '(är administratör)' if @user.is_admin && !@user.is_root_admin? %></h1>
 
 <%= image_tag @user.photo.url, :style => 'float:right;', :width => 200 %>
 <p><b>Login:</b> <%=h @user.login %></p>
 <p><b>Email:</b> <%=h @user.email %></p>
-
 <%= (links_for_user(@user) + standard_links).compact.join ' | ' %>

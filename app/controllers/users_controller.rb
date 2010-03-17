@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_admin, :except => [:show, :edit, :update]
-  before_filter :authenticate_admin_or_user_owner, :only => [:show, :edit, :update]
+  before_filter :authenticate_admin, :except => [:find, :find_result, :show, :edit, :update, :index]
+  before_filter :authenticate_admin_or_user_owner, :only => [:edit, :update]
+  before_filter :authenticate, :only => [:show, :index]
   
   def index
     @all_users = params[:all]
@@ -48,6 +49,21 @@ class UsersController < ApplicationController
     @user.destroy
 
     redirect_to(users_url)
+  end
+  
+  def find
+  end
+  
+  def find_result
+    @search_name = params[:name].to_s 
+    if @search_name == session[:last_find]
+      render :text => "text to render..." and return
+    end
+    session[:last_find] = @search_name
+    unless @search_name.empty?
+      name = '%' + params[:name] + '%'
+      @users = User.all :order => :last_name, :conditions => ['first_name LIKE ? OR last_name LIKE ?', name, name]
+    end
   end
   
   private
