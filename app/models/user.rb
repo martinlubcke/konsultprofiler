@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   acts_as_authentic
   
   has_one :profile
-  has_attached_file :photo,# Needs imagemagic :styles => { :thumb => "150x150>", :small => "200x200>" }
+  has_attached_file :photo, :styles => { :thumb => "100x100>", :small => "200x200>" },
                     :url  => "/assets/users/:id/:style/face.:extension",
                     :path => ":rails_root/public/assets/users/:id/:style/face.:extension"
   

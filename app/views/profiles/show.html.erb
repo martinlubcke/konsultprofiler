@@ -1,6 +1,8 @@
 <h1><%=h @profile.name %></h1>
 
-<%= image_tag @profile.user.photo.url, :style => 'float:right;', :width => 200 %>
+<% if @profile.user.photo? %>
+  <%= image_tag @profile.user.photo.url(:small), :style => 'float:right;' %>
+<% end %>  
 <h2>Beskrivning:</h2>
 <%=textilize @profile.description %>
 

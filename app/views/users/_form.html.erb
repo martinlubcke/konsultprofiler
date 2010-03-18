@@ -2,7 +2,9 @@
   <%= f.error_messages %>
   
   <div style="float:right;">
-    <p><%= image_tag @user.photo.url, :width => 200 %></p>
+    <% if @user.photo? %>
+      <p><%= image_tag @user.photo.url(:small) %></p>
+    <% end %>
     <%= f.file_field :photo %>
   </div>
   <% if (admin? && current_user == @user) || admin? && !@user.is_admin || current_user.is_root_admin? %>

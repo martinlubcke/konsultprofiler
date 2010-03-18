@@ -13,7 +13,7 @@
 <% if @profile.user.photo? %>
 \begin{wrapfigure}{l}{0.25\textwidth}
  \vspace{-20pt}
- \includegraphics[width=0.25\textwidth]{<%= @profile.user.photo.path %>}
+ \includegraphics[width=0.25\textwidth]{<%= @profile.user.photo.path(:small) %>}
  \vspace{-25pt}
 \end{wrapfigure}
 <% end %>

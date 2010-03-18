@@ -1,6 +1,6 @@
-<div style="float:left;margin:2px;">
+<div style="float:left;margin:8px;">
   <% if user.photo? %>
-	  <%= image_tag user.photo.url, :width => 100 %>
+	  <%= image_tag user.photo.url(:thumb) %>
   <% end %>
-  <p><%= link_to_if current_user, h(user.name), user_path(user) %></p>
+  <div><%= link_to_if current_user, h(user.name), user_path(user) %></div>
 </div>
