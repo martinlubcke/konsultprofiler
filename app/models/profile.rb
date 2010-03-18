@@ -23,4 +23,20 @@ class Profile < ActiveRecord::Base
   def categories
     rankings.collect {|q| q.skill.category}.uniq
   end
+  
+  def add_category_from_text text
+    text.each do |row|
+      case row
+      when /^[A-ZÅÄÖ\s\/]{4,}$/
+         puts "  Header: #{row}"
+      else
+        s = Skill.find_by_name row.strip
+        if s
+          puts "  Finns:  #{row}"
+        else
+          puts "  Saknas: #{row}"
+        end
+      end
+    end
+  end
 end

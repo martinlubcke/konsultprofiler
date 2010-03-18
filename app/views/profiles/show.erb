@@ -1,0 +1,23 @@
+Konsultprofil - <%=h @profile.name %>
+
+ BESKRIVNING
+-===========-
+<%=h @profile.description %>
+
+ PERSONDATA
+-==========-
+Född år: <%=h @profile.birth %>
+
+ TEKNISK KOMPETENS
+-=================-
+<% group_by_category(@profile.rankings).each do |category_name, rankings| -%>
+<%=h category_name %><% rankings.each do |ranking| %>
+ <%=h ranking.skill.name %><% end %>
+ 
+<% end -%>
+ UPPDRAG
+-=======-
+<% @profile.assignments.each do |assignment|%>
+<%=h assignment.title.upcase %> (<%=h assignment.duration %>)
+<%=h assignment.description %>
+<% end %>

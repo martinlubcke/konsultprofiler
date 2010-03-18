@@ -7,5 +7,5 @@ config/deploy.rb
 db/*.sqlite3
 import/*.xml
 public/images/*.jpg
-public/assets/*
+public/assets/users/*
 nbproject/*
