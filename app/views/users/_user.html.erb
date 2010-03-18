@@ -1,6 +1,8 @@
 <div style="float:left;margin:8px;">
   <% if user.photo? %>
 	  <%= image_tag user.photo.url(:thumb) %>
+	<% else %>
+	  <img height=100>
   <% end %>
   <div><%= link_to_if current_user, h(user.name), user_path(user) %></div>
 </div>
