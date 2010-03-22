@@ -52,7 +52,7 @@ class Profile < ActiveRecord::Base
           current.description += other_info
         end
         other_info = ''
-        current = assignments.build :title => $3, :from => $1, :to => $2, :description => ''
+        current = assignments.build :title => $3, :from => date_or_nil($1), :to => date_or_nil($2), :description => ''
       when /^BRANSCH\s*(.+)/: other_info += "- Bransch: " + $1
       when /^OMRÅDE\s*(.+)/: other_info += "- Område: " + $1
       when /^TEKNIK\/METOD\s*(.+)/: other_info += "- Metod: " + $1
