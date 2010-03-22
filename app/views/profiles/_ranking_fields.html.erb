@@ -1,7 +1,15 @@
 <div class="fields">
   <%= f.select :value, ranking_pairs %>
   <% if  f.object.skill %>
-    <%=h f.object.skill.name %>
+    <% if  f.object.skill.new_record? %>
+      <% f.fields_for :skill do |sf| %>
+        <%= sf.select :skill_category_id, SkillCategory.all.collect {|c| [c.name, c.id]} %>
+        <%= sf.text_field :name %>
+      <% end %>
+    <% else %>
+      <%= f.hidden_field :skill_id %>
+      <%=h f.object.skill.name %>
+    <% end %>
   <% else %>
     <%= chained_skill_selects_for :profile, :rankings %>
   <% end %>

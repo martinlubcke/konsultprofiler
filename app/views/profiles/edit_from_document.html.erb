@@ -1,0 +1,14 @@
+<h1><%=h @profile.name %></h1>
+
+<% form_tag update_from_document_path do %>
+  <p>Teknisk kompetens:</p>
+  <%= text_area_tag 'skills_text', '', :rows => 20, :cols => 80 %>
+
+  <p>Uppdrag:</p>
+  <%= text_area_tag 'assignments_text', '', :rows => 20, :cols => 80 %>
+  
+  <br/>
+  <%= submit_tag 'Tolka' %>
+<% end %>
+
+<%= (links_for(@profile) + standard_links).join ' | ' %>

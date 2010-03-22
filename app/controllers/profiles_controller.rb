@@ -54,4 +54,15 @@ class ProfilesController < ApplicationController
 
     redirect_to(profiles_url)
   end
+  
+  def edit_from_document
+    @profile = Profile.find(params[:id])
+  end
+  
+  def update_from_document
+    @profile = Profile.find(params[:id])
+    @profile.add_rankings_from_text params[:skills_text]
+    @profile.add_assignments_from_text params[:assignments_text]
+    render :action => "edit"
+  end
 end

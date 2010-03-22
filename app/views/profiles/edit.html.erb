@@ -1,5 +1,5 @@
 <h1><%=h @profile.name %></h1>
 
-<%= render :partial => 'form' %>
+<%= render 'form' %>
 
 <%= (links_for(@profile) + standard_links).join ' | ' %>

@@ -10,6 +10,8 @@ ActionController::Routing::Routes.draw do |map|
   map.pdf ':id.pdf', :controller => :profiles, :action => :show, :format => 'pdf'
   map.find_user 'find_user', :controller => :users, :action => :find
   map.find_user_result 'find_user_result', :controller => :users, :action => :find_result
+  map.edit_from_document ':controller/:id/edit_from_document', :action => :edit_from_document 
+  map.update_from_document ':controller/:id/update_from_document', :action => :update_from_document 
   
   map.root :controller => :profiles
 end
