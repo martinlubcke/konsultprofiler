@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
-  before_filter :authenticate_admin, :except => [:edit, :update, :show, :index]
-  before_filter :authenticate_admin_or_profile_owner, :only => [:edit, :update]
+  before_filter :authenticate_admin, :except => [:edit, :update, :edit_from_document, :update_from_document, :show, :index]
+  before_filter :authenticate_admin_or_profile_owner, :only => [:edit, :update, :edit_from_document, :update_from_document]
   before_filter :authenticate_pdf, :only => [:show]
   before_filter :authenticate, :only => [:index]
   

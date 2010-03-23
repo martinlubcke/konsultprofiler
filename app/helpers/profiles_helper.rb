@@ -6,6 +6,7 @@ module ProfilesHelper
         :subject => 'Konsulten jag vill tipsa om', 
         :body => body_for(profile)))
     links.push(link_to('Redigera', edit_profile_path(profile))) if admin? || profile == current_profile
+    links.push(link_to('Redigera från worddokument', edit_from_document_path(profile))) if admin? || profile == current_profile
     links.push(link_to('Ta bort', profile, :confirm => 'Är du säker?', :method => :delete)) if admin?
     links.compact
   end
