@@ -1,6 +1,7 @@
 <div class="fields">
+  <%= '(Ny)' if f.object.new_record? %>
   <%= f.select :value, ranking_pairs %>
-  <% if  f.object.skill %>
+  <% if f.object.skill %>
     <% if  f.object.skill.new_record? %>
       <% f.fields_for :skill do |sf| %>
         <%= sf.select :skill_category_id, SkillCategory.all.collect {|c| [c.name, c.id]} %>

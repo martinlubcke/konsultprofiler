@@ -17,7 +17,7 @@
  \vspace{-25pt}
 \end{wrapfigure}
 <% end %>
-<%= RTeX.filters['textile'].call(@profile.description) %>
+<%= RedCloth.new(@profile.description).to_latex %>
 
 \begin{multicols}{2}
 \subsection*{Bakgrund}

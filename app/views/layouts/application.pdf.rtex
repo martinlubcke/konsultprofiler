@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{fancyhdr}
+\usepackage{hyperref}
 \pagestyle{fancy}
 
 \begin{document}

@@ -61,8 +61,8 @@ class ProfilesController < ApplicationController
   
   def update_from_document
     @profile = Profile.find(params[:id])
-    @profile.add_rankings_from_text params[:skills_text]
-    @profile.add_assignments_from_text params[:assignments_text]
+    @profile.add_rankings_from_text params[:skills_text] rescue @profile.errors.add_to_base('Fel vid tolkning av kompetenser')
+    @profile.add_assignments_from_text params[:assignments_text] rescue @profile.errors.add_to_base('Fel vid tolkning av uppdrag')
     render :action => "edit"
   end
 end
