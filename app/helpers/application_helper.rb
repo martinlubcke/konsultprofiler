@@ -38,14 +38,73 @@ module ApplicationHelper
       :use_month_names => %w{Jan Feb Mar Apr Maj Jun Jul Aug Sep Okt Nov Dec}
   end
   
-  def standard_links
-    links = []
-    links.push(link_to 'Ny profil', new_profile_path) if admin? && !current_page?(new_profile_path)
-    links.push(link_to 'Alla profiler', profiles_path) unless current_page?(profiles_path)
-    links.push(link_to 'Sök profil', new_search_path) if current_user && !current_page?(new_search_path)
-    links.push(link_to 'Kompetenser', skills_path) if admin? && !current_page?(skills_path)
-    links.push(link_to 'Användare', users_path) if admin? && !current_page?(users_path)
-    links.push(link_to 'Hitta kollega', find_user_path) unless current_page?(find_user_path)
-    links
+  def link_divs
+    if current_user
+      link_div('Inloggad som', [
+          [current_user.name, user_path(current_user)],
+          ['Min profil', current_profile && profile_path(current_profile), current_profile],
+          ['Logga ut', logout_path]
+        ]) +
+      link_div('Användare', [
+          ['Alla', users_path],
+          ['Ny', new_user_path]
+        ], admin?) +
+      link_div('Profiler', [
+            ['Alla', profiles_path],
+            ['Ny', new_profile_path, admin?]
+          ]) +
+      link_div('Sökningar', [
+          ['Tidigare', searches_path],
+          ['Ny', new_search_path]
+        ]) +
+      link_div('Kompetenser', [
+          ['Alla', skills_path],
+          ['Ny', new_skill_path]
+        ], admin?) +
+      link_div('Övrigt', [['Hitta kollega', find_user_path]]) +
+      if defined?(@profile) && !@profile.new_record?
+        link_div(@profile.name, [
+                ['PDF', pdf_path(@profile)],               
+                ['Redigera', edit_profile_path(@profile), admin? || @profile == current_profile],
+                ['Från worddokument', edit_from_document_path(@profile), admin? || @profile == current_profile],
+                ['Ta bort', profile_path(@profile, :confirm => 'Är du säker?', :method => :delete), admin?]
+              ]) +
+          '<div style="margin-left:8px;">' + mail_to('', 'Mejla', 
+                    :subject => 'Konsulten jag vill tipsa om', 
+                    :body => body_for(@profile)) + "</div>\n"
+      else
+        ''
+      end +
+      if defined?(@user) && !@user.new_record?
+        link_div(@user.name, [
+          ['Redigera', edit_user_path(@user), admin? && !@user.is_admin || @user == current_user],               
+          ['Visa profil', @user.profile && profile_path(@user.profile), @user.profile],               
+          ['Redigera profil', @user.profile && edit_profile_path(@user.profile), @user.profile && (admin? || @user == current_user)],               
+          ['Ta bort', user_path(@user, :confirm => 'Är du säker?', :method => :delete), admin? && !@user.is_admin]
+        ])
+      else
+        ''
+      end
+    else
+      link_div('Logga in', login_path)
+    end
+  end
+  
+  def link_div title, content, condition=true
+    return '' unless  condition
+    if content.is_a?(String)
+      "<div>#{link_to_unless_current title, content}</div>"
+    else
+      content = content.select {|c| c[2] != false}
+      if content.empty?
+        ''
+      else
+        "<div><b>#{title}</b>\n<div style=\"margin-left:8px;\">#{content.collect {|l| link_div *l}.join("\n")}</div></div>"
+      end
+    end
+  end
+  
+  def body_for profile
+    "Hej,\rKonsulten jag rekommenderar heter #{profile.name}.\rHär kan du läsa mer om konsulten:\r#{profile_url(profile, :format => :pdf)}\r\rmvh\r#{current_user.name}"
   end
 end

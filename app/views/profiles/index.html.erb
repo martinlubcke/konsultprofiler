@@ -4,9 +4,6 @@
   <% @profiles.each do |profile| %>
     <li>
       <b><%= link_to h(profile.name), profile %></b>
-      (<%= links_for(profile).join(', ') %>)
     </li>
   <% end %>
 </ul>
-
-<%= standard_links.join ' | ' %>

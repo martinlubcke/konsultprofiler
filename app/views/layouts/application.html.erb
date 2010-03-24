@@ -10,23 +10,19 @@
 </head>
 <body>
 
-<div style="float:right;">
-<% if current_user %>
-  Inloggad som 
-  <% if current_profile %>
-	<%= link_to h(current_user.name), profile_path(current_profile) %>
-  <% else %>
-	<%=h current_user.name %>
-  <% end %>
-  (<%= link_to 'Logga ut', logout_path %>)
-<% else %>
-  <%= link_to 'Logga in', login_path %>
-<% end %>
+<div style="width: 800px;margin-right: auto; margin-left: auto;">
+  <div style="float:right;width:150px;border-style:solid;border-width:1px;border-color:#808080;margin:2px;margin-left:16px;margin-bottom:16px;padding:4px;background-color:#f0f0f0;">
+    <%= link_divs %>
+  </div>
+  <div>
+    <div style="margin:2px;">
+      <p style="color: green"><%= flash[:notice] %></p>
+    </div>
+    <div style="margin:2px;">
+      <%= yield %>
+    </div>
+  </div>
 </div>
-
-<p style="color: green"><%= flash[:notice] %></p>
-
-<%= yield %>
 
 </body>
 </html>
