@@ -20,7 +20,7 @@ end
 ### End WORKAROUND FOR WARNINGS IN RUBYGEMS
 
 Rails::Initializer.run do |config|
-  config.gem "RedCloth"
+  config.gem "RedCloth", :version => "4.1.1"
   config.gem "rtex"
   config.gem "authlogic"
 
