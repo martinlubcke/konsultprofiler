@@ -17,7 +17,7 @@
  \vspace{-25pt}
 \end{wrapfigure}
 <% end %>
-<%= RedCloth.new(@profile.description).to_latex %>
+<%= texify @profile.description %>
 
 \begin{multicols}{2}
 \subsection*{Bakgrund}
@@ -38,5 +38,5 @@
 
 <% @profile.assignments.each do |assignment| %>
   \subsection*{<%= assignment.duration %> <%=l assignment.title %>}
-  <%=l assignment.description %>
+  <%=texify assignment.description %>
 <% end %>
