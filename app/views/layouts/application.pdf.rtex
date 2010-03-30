@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 \usepackage[utf8]{inputenc}   % Enter your text in ISO-Latin 1
+\usepackage[T1]{fontenc}
 \usepackage[swedish]{babel}
 \usepackage{multicol}
 \usepackage{graphicx}
