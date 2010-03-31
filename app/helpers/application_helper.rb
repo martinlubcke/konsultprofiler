@@ -67,6 +67,8 @@ module ApplicationHelper
                 ['PDF', pdf_path(@profile)],               
                 ['Redigera', edit_profile_path(@profile), admin? || @profile == current_profile],
                 ['Från worddokument', edit_from_document_path(@profile), admin? || @profile == current_profile],
+                ['Vyer', profile_views_path(@profile), admin?],
+                ['Ny vy', new_profile_view_path(@profile), admin?],
                 ['Ta bort', profile_path(@profile, :confirm => 'Är du säker?', :method => :delete), admin?]
               ]) +
           '<div style="margin-left:8px;">' + mail_to('', 'Mejla', 

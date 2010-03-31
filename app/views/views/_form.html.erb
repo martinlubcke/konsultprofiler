@@ -1,0 +1,24 @@
+<% form_for([@profile, @view]) do |f| %>
+  <%= f.error_messages %>
+
+  <p><b><%= f.label :name %></b> <%= f.text_field :name %></p>
+  <p><b><%= f.label :description %></b></p>
+  <%= f.text_area :description %>
+
+  <h2>Kompetenser</h2>
+  <% group_by_category(@profile.rankings).each do |category_name, rankings| %>
+  <h3><%=h category_name %></h3>
+  <% rankings.each do |ranking|%>
+    <div><%= check_box_tag 'view[skill_ids][]', ranking.skill_id, @view.skills.include?(ranking.skill) %>
+    <%=h ranking.skill.name %> (<%= ranking_presentation ranking.value %>)</div>
+  <% end %>
+  <% end %>
+  
+  <h2>Uppdrag</h2>
+  <% @profile.assignments.each do |assignment|%>
+    <div><%= check_box_tag 'view[assignment_ids][]', assignment.id, @view.assignments.include?(assignment) %>
+    <%=h assignment.title %> (<%=h assignment.duration %>)</div>
+  <% end %>
+  
+  <p><%= f.submit 'Spara' %></p>
+<% end %>

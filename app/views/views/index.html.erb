@@ -1,0 +1,9 @@
+<h1><%=h @profile.name %>s vyer</h1>
+
+<ul>
+  <% @views.each do |view| %>
+    <li>
+      <b><%= link_to h(view.name), [@profile, view] %></b>
+    </li>
+  <% end %>
+</ul>

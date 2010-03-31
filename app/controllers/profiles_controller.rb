@@ -13,7 +13,11 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.pdf
+      format.pdf do
+        if params[:view_id]
+          @view = @profile.views.find(params[:view_id])
+        end
+      end
     end
   end
 

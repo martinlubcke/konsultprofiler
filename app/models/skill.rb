@@ -3,6 +3,7 @@ class Skill < ActiveRecord::Base
   has_many :profiles, :through => :rankings
   belongs_to :category, :class_name => "SkillCategory", :foreign_key => "skill_category_id"
   has_many :requirements, :dependent => :destroy
+  has_and_belongs_to_many :views
 
   def self.merge_skills source_names, target_names
     targets = [*target_names].collect {|n| Skill.find_by_name n}

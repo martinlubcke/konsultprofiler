@@ -11,6 +11,7 @@ class Profile < ActiveRecord::Base
     :include => {:skill => :category},
     :order => 'skills.name'
   has_many :skills, :through => :rankings
+  has_many :views
   belongs_to :user
   delegate :name, :to => :user
   

@@ -17,18 +17,18 @@
  \vspace{-25pt}
 \end{wrapfigure}
 <% end %>
-<%= texify @profile.description %>
+<%= texify (@view || @profile).description %>
 
 \begin{multicols}{2}
 \subsection*{Bakgrund}
 \paragraph{Född år:} <%= @profile.birth %>
 
 \subsection*{Teknisk kompetens}
-<% group_by_category(@profile.rankings).each do |category_name, rankings| %>
+<% group_by_category((@view || @profile).skills).each do |category_name, skills| %>
 \subsubsection*{<%=h category_name %>}
 \begin{itemize}
-	<% rankings.each do |ranking|%>
-		\item{<%=h ranking.skill.name %>}
+	<% skills.each do |skill|%>
+		\item{<%=l skill.name %>}
 	<% end %>
 \end{itemize}
 <% end %>
@@ -36,7 +36,7 @@
 
 \section*{Tidigare uppdrag}
 
-<% @profile.assignments.each do |assignment| %>
-  \subsection*{<%= assignment.duration %> <%=l assignment.title %>}
+<% (@view || @profile).assignments.each do |assignment| %>
+  \subsection*{<%=l assignment.duration %> <%=l assignment.title %>}
   <%=texify assignment.description %>
 <% end %>
