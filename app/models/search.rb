@@ -24,7 +24,7 @@ class Search < ActiveRecord::Base
   end
   
   def free_text_conditions
-    words = free_text.to_s.scan(/\w+/).collect{|s| "%#{s}%"}
+    words = free_text.to_s.scan(/\w+|\".+\"/).collect {|w| w.gsub('"', '')}.uniq.collect{|s| "%#{s}%"}
     [words.collect {'description LIKE ?'}.join(' OR ')] + words
   end
   
