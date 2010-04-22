@@ -24,8 +24,23 @@ class Search < ActiveRecord::Base
   end
   
   def free_text_conditions
-    words = free_text.to_s.scan(/\w+|\".+\"/).collect {|w| w.gsub('"', '')}.uniq.collect{|s| "%#{s}%"}
-    [words.collect {'description LIKE ?'}.join(' OR ')] + words
+    positive = []
+    negative = []
+    free_text.scan(/(-?)(?:(\w+)|\"([^\"]+)\")/).each do |modifier, word, sentence|
+      pattern = "%#{word}#{sentence}%"
+      if modifier == '-'
+        negative.push pattern
+      else
+        positive.push pattern
+      end
+    end
+    if positive.empty?
+      pcond = nil
+    else
+      pcond = '(' + (['description LIKE ?']*positive.size).join(' OR ') + ')'
+    end
+    cond = ([pcond].compact + ['description NOT LIKE ?']*negative.size).join(' AND ')
+    [cond] + positive + negative
   end
   
   def count_if_included coll
