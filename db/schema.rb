@@ -9,14 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100331064740) do
+ActiveRecord::Schema.define(:version => 20100422095809) do
 
   create_table "assignments", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.integer  "profile_id"
-    t.datetime "from"
-    t.datetime "to"
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

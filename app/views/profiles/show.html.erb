@@ -3,6 +3,18 @@
 <% if @profile.user.photo? %>
   <%= image_tag @profile.user.photo.url(:small), :style => 'float:right;' %>
 <% end %>  
+
+<% if @profile.current_assignment %>
+  <%=h @profile.user.first_name %> är på <%=h @profile.current_assignment.title %>
+  <% if @profile.current_assignment.end_at %>
+    fram till <%=h @profile.current_assignment.end_at.strftime("%Y-%m-%d") %>
+  <% else %>
+    tillsvidare
+  <% end %>
+<% else %>
+  <%=h @profile.user.first_name %> är tillgänglig
+<% end %>
+
 <h2>Beskrivning:</h2>
 <%=textilize @profile.description %>
 

@@ -6,7 +6,7 @@ class String
 end
   
 class Profile < ActiveRecord::Base
-  has_many :assignments
+  has_many :assignments, :order => "start_at"
   has_many :rankings, :dependent => :destroy, 
     :include => {:skill => :category},
     :order => 'skills.name'
@@ -26,6 +26,18 @@ class Profile < ActiveRecord::Base
       
   def to_param
     user.munged_name
+  end
+  
+  def later_or_nil date
+    return !date || date > Time.now
+  end
+  
+  def current_assignment
+    @current_assignment ||= if assignments.last && later_or_nil(assignments.last.end_at)
+      assignments.last
+    else
+      assignments.to_a.find {|a| a.end_at && a.end_at > Time.now}
+    end
   end
   
   def categories
