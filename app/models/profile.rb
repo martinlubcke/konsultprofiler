@@ -71,13 +71,13 @@ class Profile < ActiveRecord::Base
           current.description += other_info
         end
         other_info = ''
-        current = assignments.build :title => $3, :from => $1.date_or_nil, :to => $2.date_or_nil, :description => ''
+        current = assignments.build :title => $3, :start_at => $1.date_or_nil, :end_at => $2.date_or_nil, :description => ''
       when /(.+)\s*\((\d{4}(?:-\d\d)*)\s*-\s*(\d{4}(?:-\d\d)*|pågående)\)/
         if current
           current.description += other_info
         end
         other_info = ''
-        current = assignments.build :title => $1, :from => $2.date_or_nil, :to => $3.date_or_nil, :description => ''
+        current = assignments.build :title => $1, :start_at => $2.date_or_nil, :end_at => $3.date_or_nil, :description => ''
       when /^BRANSCH\s*(.+)/: other_info += "- Bransch: " + $1
       when /^OMRÅDE\s*(.+)/: other_info += "- Område: " + $1
       when /^TEKNIK\/METOD\s*(.+)/: other_info += "- Metod: " + $1
